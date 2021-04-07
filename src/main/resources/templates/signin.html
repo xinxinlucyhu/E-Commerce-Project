@@ -1,18 +1,18 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: head"></head>
+<head th:replace="fragments/fragments :: head"></head>
 <head>
 <link
 	href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css"
 	rel="stylesheet" crossorigin="anonymous">
 </head>
 <body style="padding: 0">
-	<div th:replace="fragments :: navbar"></div>
+	<div th:replace="fragments/fragments:: navbar"></div>
 
 	<main role="main">
 		<div class="container">
-			<form class="form-signin" th:action="@{/signin}" method="post">
+			<form class="form-signin" th:object="${user}" th:action="@{/signin}" method="post">
 				<h2 class="form-signin-heading" style="text-align: center">Please
 					Sign In/Up</h2>
 				<p>
@@ -20,11 +20,16 @@
 						type="text" id="username" name="username" class="form-control"
 						placeholder="Username">
 				</p>
+				<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="validation-message">
+				</p>
+				
 				<p>
 					<label for="password" class="sr-only">Password</label> <input
 						type="password" id="password" name="password" class="form-control"
 						placeholder="Password">
 				</p>
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></p>
+				
 				<div style="display: flex; justify-content: space-between">
 					<button class="btn btn-lg btn-primary" name="submit" value="in"
 						type="submit" style="flex-grow: 0.95">Sign In</button>
@@ -35,7 +40,7 @@
 		</div>
 	</main>
 
-	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments/fragments :: footer"></div>
 </body>
 </html>
 

@@ -1,4 +1,6 @@
-package controllers;
+package com.tts.ecommerce;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +20,13 @@ ProductService productService;
 public String show(@PathVariable int id, Model model) 
 {
   Product product = productService.findById(id);
-  model.addAtribute(product);
+  model.addAttribute(product);
   return "product";
 }
 
 @RequestMapping(value = "/product", method = {RequestMethod.POST, RequestMethod.PUT})
 public String createOrUpdate(@Valid Product product) {
-    ProductService.save(product);
+    productService.save(product);
     return "redirect:/product/" + product.getId();
 }
 }
